@@ -1,0 +1,38 @@
+export const events = [
+  {
+    title: 'ABES Hackathon',
+    category: 'Technology',
+    status: 'Coming Soon',
+    date: 'Jan 2026',
+    description: '48 hours of coding, innovation and building solutions.',
+    attendees: '500+ expected',
+    icon: 'Code2',
+  },
+  {
+    title: 'TechFest',
+    category: 'Innovation',
+    status: 'Coming Soon',
+    date: 'Feb 2026',
+    description: 'A celebration of technology, ideas and student projects.',
+    attendees: '1,000+ expected',
+    icon: 'Sparkles',
+  },
+  {
+    title: 'Placement Preparation',
+    category: 'Career',
+    status: 'Coming Soon',
+    date: 'Dec 2025',
+    description: 'Mock interviews, aptitude tests and resume reviews.',
+    attendees: '300+ expected',
+    icon: 'Briefcase',
+  },
+  {
+    title: 'Cultural Fest',
+    category: 'Campus Life',
+    status: 'Coming Soon',
+    date: 'Mar 2026',
+    description: 'Music, dance, drama and the vibrant culture of ABES.',
+    attendees: '2,000+ expected',
+    icon: 'PartyPopper',
+  },
+];
