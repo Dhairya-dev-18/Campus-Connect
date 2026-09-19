@@ -58,12 +58,12 @@ export const whyAbes = [
 ];
 
 export const navItems = [
-  { label: 'Home', id: 'home' },
-  { label: 'Academics', id: 'academics' },
-  { label: 'Placements', id: 'placements' },
-  { label: 'Campus Life', id: 'campus-life' },
-  { label: 'Lost & Found', id: 'lost-found' },
-  { label: 'Communities', id: 'communities' },
-  { label: 'Chat', id: 'chat' },
-  { label: 'Events', id: 'events' },
+  { label: 'Home', path: '/' },
+  { label: 'Academics', path: '/academics' },
+  { label: 'Placements', path: '/placements' },
+  { label: 'Campus Life', path: '/campus-life' },
+  { label: 'Lost & Found', path: '/lost-found' },
+  { label: 'Communities', path: '/communities' },
+  { label: 'Chat', path: '/chat' },
+  { label: 'Events', path: '/events' },
 ];

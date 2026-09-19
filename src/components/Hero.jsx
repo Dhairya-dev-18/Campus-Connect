@@ -1,11 +1,10 @@
 import { ArrowRight, Users } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { heroCards } from '../data/chatMessages';
 import * as Icons from 'lucide-react';
 
 export default function Hero() {
-  const scrollTo = (id) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-  };
+  const navigate = useNavigate();
 
   return (
     <section className="hero" id="home">
@@ -22,10 +21,10 @@ export default function Hero() {
               One digital space for ABES students to learn, discover opportunities, connect with communities, chat with fellow students, and stay updated with campus life.
             </p>
             <div className="hero-cta">
-              <button className="btn btn-primary" onClick={() => scrollTo('academics')}>
+              <button className="btn btn-primary" onClick={() => navigate('/academics')}>
                 Explore Campus <ArrowRight size={18} />
               </button>
-              <button className="btn btn-secondary" onClick={() => scrollTo('communities')}>
+              <button className="btn btn-secondary" onClick={() => navigate('/communities')}>
                 Join the Community <Users size={18} />
               </button>
             </div>

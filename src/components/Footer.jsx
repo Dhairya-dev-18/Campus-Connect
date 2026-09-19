@@ -1,17 +1,21 @@
-import { GraduationCap, Globe, Link, Mail, Share2, Send, MessageCircle } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { GraduationCap, Globe, Link as LinkIcon, Mail, Share2, Send, MessageCircle } from 'lucide-react';
 import { college } from '../data/collegeData';
 
 const platformLinks = [
-  'Academics', 'Placements', 'Communities', 'Community Chat', 'Events', 'Lost & Found',
+  { label: 'Academics', path: '/academics' },
+  { label: 'Placements', path: '/placements' },
+  { label: 'Communities', path: '/communities' },
+  { label: 'Community Chat', path: '/chat' },
+  { label: 'Events', path: '/events' },
+  { label: 'Lost & Found', path: '/lost-found' },
 ];
 
 const collegeLinks = ['About ABES', 'Departments', 'Campus', 'Contact'];
 
-const socials = [Globe, Link, Mail, Share2, Send, MessageCircle];
+const socials = [Globe, LinkIcon, Mail, Share2, Send, MessageCircle];
 
 export default function Footer() {
-  const scrollTo = (id) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-
   return (
     <footer className="footer">
       <div className="container">
@@ -38,23 +42,9 @@ export default function Footer() {
           <div>
             <div className="footer-col-title">Platform</div>
             {platformLinks.map((l, i) => (
-              <span
-                key={i}
-                className="footer-link"
-                onClick={() => {
-                  const map = {
-                    Academics: 'academics',
-                    Placements: 'placements',
-                    Communities: 'communities',
-                    'Community Chat': 'chat',
-                    Events: 'events',
-                    'Lost & Found': 'lost-found',
-                  };
-                  scrollTo(map[l]);
-                }}
-              >
-                {l}
-              </span>
+              <Link key={i} to={l.path} className="footer-link">
+                {l.label}
+              </Link>
             ))}
           </div>
 

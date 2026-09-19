@@ -1,9 +1,10 @@
 import { ArrowRight, Users } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 
 export default function CTA() {
   const { ref, visible } = useScrollReveal();
-  const scrollTo = (id) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+  const navigate = useNavigate();
 
   return (
     <section className="cta-section" ref={ref}>
@@ -14,10 +15,10 @@ export default function CTA() {
             Learn. Connect. Collaborate. Discover opportunities. Build your future.
           </p>
           <div className="cta-buttons">
-            <button className="btn btn-primary" onClick={() => scrollTo('academics')}>
+            <button className="btn btn-primary" onClick={() => navigate('/academics')}>
               Explore Campus <ArrowRight size={18} />
             </button>
-            <button className="btn btn-secondary" onClick={() => scrollTo('communities')}>
+            <button className="btn btn-secondary" onClick={() => navigate('/communities')}>
               Join Community <Users size={18} />
             </button>
           </div>

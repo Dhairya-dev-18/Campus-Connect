@@ -1,42 +1,37 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import Stats from './components/Stats';
-import FeatureGrid from './components/FeatureGrid';
-import AcademicsPreview from './components/AcademicsPreview';
-import PlacementSection from './components/PlacementSection';
-import PlacementHighlights from './components/PlacementHighlights';
-import LostFound from './components/LostFound';
-import CommunityHub from './components/CommunityHub';
-import CommunityChat from './components/CommunityChat';
-import Events from './components/Events';
-import ActivityFeed from './components/ActivityFeed';
-import WhyAbes from './components/WhyAbes';
-import CTA from './components/CTA';
 import Footer from './components/Footer';
 import BackToTop from './components/BackToTop';
+import HomePage from './pages/HomePage';
+import AcademicsPage from './pages/AcademicsPage';
+import PlacementsPage from './pages/PlacementsPage';
+import CampusLifePage from './pages/CampusLifePage';
+import LostFoundPage from './pages/LostFoundPage';
+import CommunitiesPage from './pages/CommunitiesPage';
+import ChatPage from './pages/ChatPage';
+import EventsPage from './pages/EventsPage';
+import NotFoundPage from './pages/NotFoundPage';
 
 function App() {
   return (
-    <>
+    <BrowserRouter>
       <Navbar />
       <main>
-        <Hero />
-        <Stats />
-        <FeatureGrid />
-        <AcademicsPreview />
-        <PlacementSection />
-        <PlacementHighlights />
-        <LostFound />
-        <CommunityHub />
-        <CommunityChat />
-        <Events />
-        <ActivityFeed />
-        <WhyAbes />
-        <CTA />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/academics" element={<AcademicsPage />} />
+          <Route path="/placements" element={<PlacementsPage />} />
+          <Route path="/campus-life" element={<CampusLifePage />} />
+          <Route path="/lost-found" element={<LostFoundPage />} />
+          <Route path="/communities" element={<CommunitiesPage />} />
+          <Route path="/chat" element={<ChatPage />} />
+          <Route path="/events" element={<EventsPage />} />
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
       </main>
       <Footer />
       <BackToTop />
-    </>
+    </BrowserRouter>
   );
 }
 
