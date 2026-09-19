@@ -537,24 +537,33 @@ img {
 @keyframes rotate {
   to { transform: translate(-50%, -50%) rotate(360deg); }
 }
-
-.floating-card {
+.floating-cards-container {
+  display: grid;
+  grid-template-columns: repeat(2, 240px);
+  gap: 20px;
   position: absolute;
-  width: 240px;
+  top: 20px;
+  left: 20px;
+  right: 20px;
+  z-index: 2;
+}
+.floating-card {
+  position: relative;
+  width: 100%;
   padding: 18px;
   border-radius: var(--radius-lg);
-  background: rgba(15, 21, 53, 0.8);
+  background: rgba(15, 23, 42, 0.6);
   backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: var(--shadow-lg);
   animation: float 6s ease-in-out infinite;
 }
 
-.floating-card:nth-child(1) { top: 10px; left: 0; animation-delay: 0s; }
+/* .floating-card:nth-child(1) { top: 10px; left: 0; animation-delay: 0s; }
 .floating-card:nth-child(2) { top: 80px; right: 0; animation-delay: 0.5s; }
 .floating-card:nth-child(3) { bottom: 140px; left: 10px; animation-delay: 1s; }
 .floating-card:nth-child(4) { bottom: 30px; right: 20px; animation-delay: 1.5s; }
-.floating-card:nth-child(5) { top: 280px; left: 50%; transform: translateX(-50%); animation-delay: 2s; }
+.floating-card:nth-child(5) { top: 280px; left: 50%; transform: translateX(-50%); animation-delay: 2s; } */
 
 @keyframes float {
   0%, 100% { transform: translateY(0); }
