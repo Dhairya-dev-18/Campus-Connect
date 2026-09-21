@@ -9,6 +9,9 @@ export function AuthProvider({ children }) {
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  const isAuthenticated = !!user;
+  const isAdmin = profile?.role === 'admin';
+
   const fetchProfile = useCallback(async (uid) => {
     if (!uid) {
       setProfile(null);
@@ -16,7 +19,7 @@ export function AuthProvider({ children }) {
     }
     const { data, error } = await supabase
       .from('profiles')
-      .select('id, full_name, roll_number, branch, avatar_color')
+      .select('id, full_name, roll_number, branch, avatar_color, role, bio, semester, avatar_url, created_at')
       .eq('id', uid)
       .maybeSingle();
 
@@ -86,7 +89,24 @@ export function AuthProvider({ children }) {
     setProfile(null);
   };
 
-  const value = { session, user, profile, loading, signUp, signIn, signOut, fetchProfile };
+  const updateProfile = async (updates) => {
+    if (!user) throw new Error('Not authenticated');
+    const { data, error } = await supabase
+      .from('profiles')
+      .update(updates)
+      .eq('id', user.id)
+      .select('id, full_name, roll_number, branch, avatar_color, role, bio, semester, avatar_url, created_at')
+      .maybeSingle();
+    if (error) throw error;
+    if (data) setProfile(data);
+    return data;
+  };
+
+  const value = {
+    session, user, profile, loading,
+    isAuthenticated, isAdmin,
+    signUp, signIn, signOut, fetchProfile, updateProfile,
+  };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
