@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Hero from '../components/Hero';
 import Stats from '../components/Stats';
 import FeatureGrid from '../components/FeatureGrid';
@@ -12,8 +12,11 @@ import Events from '../components/Events';
 import ActivityFeed from '../components/ActivityFeed';
 import WhyAbes from '../components/WhyAbes';
 import CTA from '../components/CTA';
+import AuthModal from '../components/AuthModal';
 
 export default function HomePage() {
+  const [authOpen, setAuthOpen] = useState(false);
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -26,13 +29,14 @@ export default function HomePage() {
       <AcademicsPreview />
       <PlacementSection />
       <PlacementHighlights />
-      <LostFound />
-      <CommunityHub />
-      <CommunityChat />
-      <Events />
+      <LostFound onLoginClick={() => setAuthOpen(true)} />
+      <CommunityHub onLoginClick={() => setAuthOpen(true)} />
+      <CommunityChat onLoginClick={() => setAuthOpen(true)} />
+      <Events onLoginClick={() => setAuthOpen(true)} />
       <ActivityFeed />
       <WhyAbes />
       <CTA />
+      <AuthModal open={authOpen} onClose={() => setAuthOpen(false)} />
     </>
   );
 }

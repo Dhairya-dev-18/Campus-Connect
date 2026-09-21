@@ -1,13 +1,16 @@
 import { useEffect, useState } from 'react';
 import { NavLink, useNavigate, useLocation } from 'react-router-dom';
-import { GraduationCap, User, Menu } from 'lucide-react';
+import { GraduationCap, User, Menu, LogOut } from 'lucide-react';
 import { navItems } from '../data/collegeData';
+import { useAuth } from '../context/AuthContext';
 
-export default function Navbar() {
+export default function Navbar({ onLoginClick }) {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [profileMenu, setProfileMenu] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
+  const { user, profile, signOut } = useAuth();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 30);
@@ -17,9 +20,12 @@ export default function Navbar() {
 
   useEffect(() => {
     setMenuOpen(false);
+    setProfileMenu(false);
   }, [location.pathname]);
 
-  const handleLogin = () => {
+  const handleSignOut = async () => {
+    await signOut();
+    setProfileMenu(false);
     navigate('/');
   };
 
@@ -52,12 +58,38 @@ export default function Navbar() {
           </ul>
 
           <div className="navbar-actions">
-            <button className="navbar-login" onClick={handleLogin}>
-              Student Login
-            </button>
-            <div className="navbar-profile" onClick={handleLogin}>
-              <User size={18} />
-            </div>
+            {user ? (
+              <div className="navbar-user-wrapper">
+                <div
+                  className="navbar-profile"
+                  onClick={() => setProfileMenu(!profileMenu)}
+                  title={profile?.full_name || 'Account'}
+                  style={profile?.avatar_color ? { background: profile.avatar_color } : {}}
+                >
+                  {profile?.full_name ? profile.full_name[0].toUpperCase() : <User size={18} />}
+                </div>
+                {profileMenu && (
+                  <div className="profile-dropdown">
+                    <div className="profile-dropdown-header">
+                      <div className="profile-dropdown-name">{profile?.full_name || 'Student'}</div>
+                      <div className="profile-dropdown-email">{user.email}</div>
+                      {profile?.roll_number && (
+                        <div className="profile-dropdown-meta">
+                          {profile.roll_number} • {profile.branch || 'N/A'}
+                        </div>
+                      )}
+                    </div>
+                    <button className="profile-dropdown-item" onClick={handleSignOut}>
+                      <LogOut size={16} /> Sign Out
+                    </button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <button className="navbar-login" onClick={onLoginClick}>
+                Student Login
+              </button>
+            )}
             <div className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
               <span></span>
               <span></span>
@@ -79,13 +111,23 @@ export default function Navbar() {
             {item.label}
           </NavLink>
         ))}
-        <button
-          className="btn btn-primary"
-          style={{ marginTop: 12, width: 'fit-content' }}
-          onClick={handleLogin}
-        >
-          Student Login
-        </button>
+        {user ? (
+          <button
+            className="btn btn-primary"
+            style={{ marginTop: 12, width: 'fit-content' }}
+            onClick={handleSignOut}
+          >
+            Sign Out
+          </button>
+        ) : (
+          <button
+            className="btn btn-primary"
+            style={{ marginTop: 12, width: 'fit-content' }}
+            onClick={() => { setMenuOpen(false); onLoginClick(); }}
+          >
+            Student Login
+          </button>
+        )}
       </div>
     </>
   );

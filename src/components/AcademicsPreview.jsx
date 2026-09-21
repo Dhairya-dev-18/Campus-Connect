@@ -1,9 +1,11 @@
 import { BarChart3, FileText, ArrowRight } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import { subjects, recentResources } from '../data/activities';
 
 export default function AcademicsPreview() {
   const { ref, visible } = useScrollReveal();
+  const navigate = useNavigate();
 
   return (
     <section className="section" id="academics" ref={ref}>
@@ -52,9 +54,13 @@ export default function AcademicsPreview() {
                 <span className="resource-name">{r}</span>
               </div>
             ))}
-            <span className="feature-link" style={{ marginTop: 20, display: 'inline-flex' }}>
+            <button
+              className="feature-link"
+              style={{ marginTop: 20, display: 'inline-flex', background: 'none', border: 'none', cursor: 'pointer' }}
+              onClick={() => navigate('/academics')}
+            >
               Explore Academic Hub <ArrowRight size={16} />
-            </span>
+            </button>
           </div>
         </div>
       </div>

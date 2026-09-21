@@ -1,9 +1,11 @@
-import { ArrowRight, TrendingUp } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import { placementStats, recruiters } from '../data/collegeData';
 
 export default function PlacementSection() {
   const { ref, visible } = useScrollReveal();
+  const navigate = useNavigate();
 
   return (
     <section className="section placement-section" id="placements" ref={ref}>
@@ -34,9 +36,9 @@ export default function PlacementSection() {
         </div>
 
         <div style={{ textAlign: 'center' }}>
-          <span className="btn btn-primary">
+          <button className="btn btn-primary" onClick={() => navigate('/placements')}>
             Explore Placement Hub <ArrowRight size={18} />
-          </span>
+          </button>
         </div>
       </div>
     </section>

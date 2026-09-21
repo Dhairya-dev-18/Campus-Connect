@@ -1,4 +1,5 @@
 import { ArrowRight, BookOpen, Briefcase, Search, Users, MessageCircle, Calendar, Bell } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import { chatMessages } from '../data/chatMessages';
 import { communityFeatures } from '../data/communities';
@@ -11,6 +12,7 @@ const features = [
     tags: ['Notes', 'Subjects', 'Resources', 'Previous Papers'],
     link: 'Explore Academics',
     color: '#3b82f6',
+    path: '/academics',
   },
   {
     icon: Briefcase,
@@ -19,6 +21,7 @@ const features = [
     tags: ['Placement Drives', 'Internships', 'Recruiters', 'Placement Statistics'],
     link: 'Explore Placements',
     color: '#8b5cf6',
+    path: '/placements',
   },
   {
     icon: Search,
@@ -30,6 +33,7 @@ const features = [
     ],
     link: 'Open Lost & Found',
     color: '#f59e0b',
+    path: '/lost-found',
   },
   {
     icon: Users,
@@ -38,6 +42,7 @@ const features = [
     tags: communityFeatures,
     link: 'Discover Communities',
     color: '#10b981',
+    path: '/communities',
   },
   {
     icon: Calendar,
@@ -46,6 +51,7 @@ const features = [
     tags: ['Hackathons', 'Workshops', 'Cultural Events', 'Technical Events'],
     link: 'View Events',
     color: '#ec4899',
+    path: '/events',
   },
   {
     icon: Bell,
@@ -54,11 +60,13 @@ const features = [
     tags: ['Announcements', 'News', 'Notifications'],
     link: 'View Updates',
     color: '#f97316',
+    path: '/campus-life',
   },
 ];
 
 export default function FeatureGrid() {
   const { ref, visible } = useScrollReveal();
+  const navigate = useNavigate();
 
   return (
     <section className="section" id="campus-life" ref={ref}>
@@ -76,6 +84,8 @@ export default function FeatureGrid() {
             <div
               key={i}
               className={`feature-card reveal reveal-delay-${(i % 3) + 1} ${visible ? 'visible' : ''}`}
+              onClick={() => navigate(f.path)}
+              style={{ cursor: 'pointer' }}
             >
               <div
                 className="feature-icon"
@@ -105,7 +115,11 @@ export default function FeatureGrid() {
         </div>
 
         {/* Community Chat Feature Card */}
-        <div className={`chat-feature-card reveal reveal-delay-2 ${visible ? 'visible' : ''}`} style={{ marginTop: 24 }}>
+        <div
+          className={`chat-feature-card reveal reveal-delay-2 ${visible ? 'visible' : ''}`}
+          style={{ marginTop: 24, cursor: 'pointer' }}
+          onClick={() => navigate('/chat')}
+        >
           <div className="chat-feature-content">
             <div
               className="feature-icon"
