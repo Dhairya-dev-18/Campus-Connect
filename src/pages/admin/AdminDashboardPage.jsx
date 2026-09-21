@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Users, Calendar, UsersRound, Package, BookOpen, ClipboardList, TrendingUp } from 'lucide-react';
-import AdminLayout from '../components/AdminLayout';
-import { supabase } from '../lib/supabase';
-import { LoadingState, ErrorState } from '../components/ui';
+import AdminLayout from '../../components/AdminLayout';
+import { supabase } from '../../lib/supabase';
+import { LoadingState, ErrorState } from '../../components/ui';
 
 export default function AdminDashboardPage() {
   const [stats, setStats] = useState(null);

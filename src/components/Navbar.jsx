@@ -1,8 +1,23 @@
 import { useEffect, useState } from 'react';
 import { NavLink, useNavigate, useLocation } from 'react-router-dom';
-import { GraduationCap, User, Menu, LogOut } from 'lucide-react';
-import { navItems } from '../data/collegeData';
+import { GraduationCap, User, Menu, LogOut, Shield, Settings } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+
+const publicNav = [
+  { path: '/', label: 'Home' },
+  { path: '/academics', label: 'Academics' },
+  { path: '/placements', label: 'Placements' },
+  { path: '/campus-life', label: 'Campus Life' },
+];
+
+const studentNav = [
+  { path: '/', label: 'Home' },
+  { path: '/events', label: 'Events' },
+  { path: '/communities', label: 'Communities' },
+  { path: '/chat', label: 'Chat' },
+  { path: '/lost-found', label: 'Lost & Found' },
+  { path: '/academics', label: 'Academics' },
+];
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -10,7 +25,9 @@ export default function Navbar() {
   const [profileMenu, setProfileMenu] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
-  const { user, profile, signOut } = useAuth();
+  const { user, profile, signOut, isAdmin } = useAuth();
+
+  const navItems = user ? studentNav : publicNav;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 30);
@@ -55,6 +72,14 @@ export default function Navbar() {
                 </NavLink>
               </li>
             ))}
+            {isAdmin && (
+              <li>
+                <NavLink to="/admin" className={navLinkClass}>
+                  <Shield size={14} style={{ display: 'inline', marginRight: 4 }} />
+                  Admin
+                </NavLink>
+              </li>
+            )}
           </ul>
 
           <div className="navbar-actions">
@@ -78,7 +103,20 @@ export default function Navbar() {
                           {profile.roll_number} • {profile.branch || 'N/A'}
                         </div>
                       )}
+                      {isAdmin && (
+                        <div className="profile-dropdown-admin-tag">
+                          <Shield size={12} /> Administrator
+                        </div>
+                      )}
                     </div>
+                    <button className="profile-dropdown-item" onClick={() => { setProfileMenu(false); navigate('/profile'); }}>
+                      <User size={16} /> My Profile
+                    </button>
+                    {isAdmin && (
+                      <button className="profile-dropdown-item" onClick={() => { setProfileMenu(false); navigate('/admin'); }}>
+                        <Shield size={16} /> Admin Dashboard
+                      </button>
+                    )}
                     <button className="profile-dropdown-item" onClick={handleSignOut}>
                       <LogOut size={16} /> Sign Out
                     </button>
@@ -111,14 +149,25 @@ export default function Navbar() {
             {item.label}
           </NavLink>
         ))}
+        {isAdmin && (
+          <NavLink to="/admin" className={navLinkClass} style={{ display: 'block', padding: '14px 16px' }}>
+            <Shield size={14} style={{ display: 'inline', marginRight: 4 }} />
+            Admin Dashboard
+          </NavLink>
+        )}
         {user ? (
-          <button
-            className="btn btn-primary"
-            style={{ marginTop: 12, width: 'fit-content' }}
-            onClick={handleSignOut}
-          >
-            Sign Out
-          </button>
+          <>
+            <NavLink to="/profile" className={navLinkClass} style={{ display: 'block', padding: '14px 16px' }}>
+              My Profile
+            </NavLink>
+            <button
+              className="btn btn-primary"
+              style={{ marginTop: 12, width: 'fit-content' }}
+              onClick={handleSignOut}
+            >
+              Sign Out
+            </button>
+          </>
         ) : (
           <button
             className="btn btn-primary"
