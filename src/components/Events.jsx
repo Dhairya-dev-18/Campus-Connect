@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import * as Icons from 'lucide-react';
 import { Calendar, Users, Check, Loader2, X } from 'lucide-react';
 import { useScrollReveal } from '../hooks/useScrollReveal';
@@ -7,7 +8,8 @@ import { supabase } from '../lib/supabase';
 
 const eventColors = ['#3b82f6', '#8b5cf6', '#f59e0b', '#ec4899'];
 
-export default function Events({ onLoginClick }) {
+export default function Events() {
+  const navigate = useNavigate();
   const { ref, visible } = useScrollReveal();
   const { user } = useAuth();
   const [events, setEvents] = useState([]);
@@ -59,7 +61,7 @@ export default function Events({ onLoginClick }) {
 
   const handleRegister = async (eventId) => {
     if (!user) {
-      onLoginClick();
+      navigate('/login');
       return;
     }
     if (registrations[eventId]) return;

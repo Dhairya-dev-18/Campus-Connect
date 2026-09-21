@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { MapPin, Clock, Plus, Search, X, Loader2, CheckCircle, Package } from 'lucide-react';
 import * as Icons from 'lucide-react';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import { useAuth } from '../context/AuthContext';
 import { supabase } from '../lib/supabase';
 
-export default function LostFound({ onLoginClick }) {
+export default function LostFound() {
+  const navigate = useNavigate();
   const { ref, visible } = useScrollReveal();
   const { user } = useAuth();
   const [items, setItems] = useState([]);
@@ -37,7 +39,7 @@ export default function LostFound({ onLoginClick }) {
 
   const handleReport = (type) => {
     if (!user) {
-      onLoginClick();
+      navigate('/login');
       return;
     }
     setFormType(type);

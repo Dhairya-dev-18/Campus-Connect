@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   Send, Smile, Paperclip, Search, Phone, MoreVertical,
   ArrowRight, Hash, Users, Loader2,
@@ -10,7 +11,8 @@ import { chatStats } from '../data/communities';
 
 const avatarColors = ['#3b82f6', '#8b5cf6', '#10b981', '#f59e0b', '#ec4899', '#f97316'];
 
-export default function CommunityChat({ onLoginClick }) {
+export default function CommunityChat() {
+  const navigate = useNavigate();
   const { ref, visible } = useScrollReveal();
   const { user, profile } = useAuth();
   const [rooms, setRooms] = useState([]);
@@ -244,7 +246,7 @@ export default function CommunityChat({ onLoginClick }) {
                   </>
                 ) : (
                   <div className="chat-login-prompt">
-                    <button className="btn btn-primary btn-sm" onClick={onLoginClick}>
+                    <button className="btn btn-primary btn-sm" onClick={() => navigate('/login')}>
                       Sign in to chat
                     </button>
                   </div>

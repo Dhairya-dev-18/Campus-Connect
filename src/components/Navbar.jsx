@@ -4,7 +4,7 @@ import { GraduationCap, User, Menu, LogOut } from 'lucide-react';
 import { navItems } from '../data/collegeData';
 import { useAuth } from '../context/AuthContext';
 
-export default function Navbar({ onLoginClick }) {
+export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [profileMenu, setProfileMenu] = useState(false);
@@ -86,7 +86,7 @@ export default function Navbar({ onLoginClick }) {
                 )}
               </div>
             ) : (
-              <button className="navbar-login" onClick={onLoginClick}>
+              <button className="navbar-login" onClick={() => navigate('/login')}>
                 Student Login
               </button>
             )}
@@ -123,7 +123,7 @@ export default function Navbar({ onLoginClick }) {
           <button
             className="btn btn-primary"
             style={{ marginTop: 12, width: 'fit-content' }}
-            onClick={() => { setMenuOpen(false); onLoginClick(); }}
+            onClick={() => { setMenuOpen(false); navigate('/login'); }}
           >
             Student Login
           </button>
